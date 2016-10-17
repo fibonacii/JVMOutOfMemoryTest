@@ -23,18 +23,25 @@ public class HeapOOM {
 //        private OOMObject40b oomObject40b=new OOMObject40b();
     }
 
-    public static void main(String[] args) throws InstantiationException, IllegalAccessException {
+    public static void main(String[] args) {
 //        makeOOM(OOMObject4b.class);
         makeOOM(OOMObject40b.class);
     }
 
-    private static <T> void makeOOM(Class<T> clazz) throws IllegalAccessException, InstantiationException {
+    private static <T> void makeOOM(Class<T> clazz) {
         List<T> oomObjects=new ArrayList<T>();
+        int index=0;
 
-        int i=0;
-        while(true){
-            System.out.println(++i);
-            oomObjects.add(clazz.newInstance());
+        try {
+            while(true){
+                index++;
+                oomObjects.add(clazz.newInstance());
+            }
+        } catch (Throwable e){
+            System.out.println("index:"+index);
+            e.printStackTrace();
         }
+
+
     }
 }
